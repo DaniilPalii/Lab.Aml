@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lab.Aml.Domain", "Lab.Aml.D
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lab.Aml.DataPersistence", "Lab.Aml.DataPersistence\Lab.Aml.DataPersistence.csproj", "{7348B679-C23D-4491-BED3-2A6315F10526}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lab.Aml.DatabaseDesign", "Lab.Aml.DatabaseDesign\Lab.Aml.DatabaseDesign.csproj", "{C6720574-70F7-498F-8BB3-FA3516088C32}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{7348B679-C23D-4491-BED3-2A6315F10526}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7348B679-C23D-4491-BED3-2A6315F10526}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7348B679-C23D-4491-BED3-2A6315F10526}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C6720574-70F7-498F-8BB3-FA3516088C32}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C6720574-70F7-498F-8BB3-FA3516088C32}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C6720574-70F7-498F-8BB3-FA3516088C32}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C6720574-70F7-498F-8BB3-FA3516088C32}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
