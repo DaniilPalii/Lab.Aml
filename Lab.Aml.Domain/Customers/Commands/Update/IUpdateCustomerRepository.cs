@@ -1,4 +1,4 @@
-﻿namespace Lab.Aml.Domain.Customers.Commands.Add;
+﻿namespace Lab.Aml.Domain.Customers.Commands.Update;
 
 public interface IUpdateCustomerRepository
 {

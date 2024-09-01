@@ -1,4 +1,4 @@
-﻿using Lab.Aml.Domain.Customers.Commands.Add;
+﻿using Lab.Aml.Domain.Customers.Commands.Update;
 
 namespace Lab.Aml.WebApi.TransferObjects;
 

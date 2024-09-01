@@ -1,6 +1,7 @@
 ﻿using Lab.Aml.DataPersistence.Context;
 using Lab.Aml.Domain.Customers;
 using Lab.Aml.Domain.Customers.Commands.Add;
+using Lab.Aml.Domain.Customers.Commands.Update;
 using Lab.Aml.Domain.Customers.Queries.GetAll;
 using Lab.Aml.Domain.Customers.Queries.GetById;
 using Microsoft.EntityFrameworkCore;

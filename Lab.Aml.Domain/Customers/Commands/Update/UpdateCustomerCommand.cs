@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace Lab.Aml.Domain.Customers.Commands.Add;
+namespace Lab.Aml.Domain.Customers.Commands.Update;
 
 public sealed record UpdateCustomerCommand(
 	long Id,
