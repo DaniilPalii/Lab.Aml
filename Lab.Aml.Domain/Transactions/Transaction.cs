@@ -1,6 +1,6 @@
 ﻿namespace Lab.Aml.Domain.Transactions;
 
-public class Transaction
+public sealed class Transaction
 {
 	public required long Id { get; set; }
 

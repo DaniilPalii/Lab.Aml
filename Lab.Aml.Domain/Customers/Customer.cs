@@ -1,6 +1,6 @@
 ﻿namespace Lab.Aml.Domain.Customers;
 
-public class Customer
+public sealed class Customer
 {
 	public required long Id { get; set; }
 

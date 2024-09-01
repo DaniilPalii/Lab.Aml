@@ -2,13 +2,15 @@
 using Lab.Aml.Domain.Customers;
 using Lab.Aml.Domain.Customers.Commands.Add;
 using Lab.Aml.Domain.Customers.Queries.GetAll;
+using Lab.Aml.Domain.Customers.Queries.GetById;
 using Microsoft.EntityFrameworkCore;
 
 namespace Lab.Aml.DataPersistence.Repositories;
 
-public class CustomerRepository(AppDbContext dbContext)
+public sealed class CustomerRepository(AppDbContext dbContext)
 	: IAddCustomerRepository,
-		IGetAllCustomersRepository
+		IGetAllCustomersRepository,
+		IGetCustomerByIdRepository
 {
 	public void Add(AddCustomerCommand customer)
 	{
@@ -27,6 +29,14 @@ public class CustomerRepository(AppDbContext dbContext)
 		return await dbContext.Customers
 			.Select(e => e.ToDomainValue())
 			.ToListAsync(cancellationToken);
+	}
+
+	public async Task<Customer?> GetByIdAsync(long id, CancellationToken cancellationToken)
+	{
+		return await dbContext.Customers
+			.Where(e => e.Id == id)
+			.Select(e => e.ToDomainValue())
+			.FirstOrDefaultAsync(cancellationToken);
 	}
 
 	public async Task SaveChangesAsync(CancellationToken cancellationToken)
