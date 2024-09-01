@@ -1,13 +1,17 @@
+using Lab.Aml.WebApi;
+
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+Database.AddTo(builder);
+Services.AddTo(builder);
+Swagger.AddTo(builder);
 
 var app = builder.Build();
 
-app.UseSwagger();
-app.UseSwaggerUI();
-
+Swagger.UseIn(app);
 app.UseHttpsRedirection();
+app.MapControllers();
 
 app.Run();

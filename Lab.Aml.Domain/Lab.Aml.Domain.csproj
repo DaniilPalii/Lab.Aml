@@ -7,7 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Customers\" />
+    <PackageReference Include="MediatR" Version="12.4.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Customers\Queries\GetAll\" />
   </ItemGroup>
 
 </Project>

@@ -1,20 +1,31 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Lab.Aml.DataPersistence.Entities;
 
 public class Customer
 {
 	[Key]
-	public required long Id { get; set; }
+	public long? Id { get; set; }
 
-	public required string Name { get; set; }
+	public string? Name { get; set; }
 
-	public required string Surname { get; set; }
+	public string? Surname { get; set; }
 
-	public required DateOnly Birthdate { get; set; }
+	public DateOnly? Birthdate { get; set; }
 
-	public required string Address { get; set; }
+	public string? Address { get; set; }
 
-	public required List<Transaction> Transactions { get; set; }
+	public List<Transaction>? Transactions { get; set; }
+
+	public Domain.Customers.Customer ToDomainValue()
+	{
+		return new()
+		{
+			Id = Id!.Value,
+			Name = Name!,
+			Surname = Surname!,
+			Birthdate = Birthdate!.Value,
+			Address = Address!,
+		};
+	}
 }

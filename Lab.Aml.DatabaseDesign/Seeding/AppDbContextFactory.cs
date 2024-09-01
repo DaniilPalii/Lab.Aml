@@ -4,7 +4,7 @@ using Lab.Aml.DataPersistence.Context;
 
 namespace Lab.Aml.DatabaseDesign.Seeding;
 
-internal class AppDbContextFactory : IDesignTimeDbContextFactory<AppDbContext>
+public sealed class AppDbContextFactory : IDesignTimeDbContextFactory<AppDbContext>
 {
 	public AppDbContext CreateDbContext(string[] args)
 	{

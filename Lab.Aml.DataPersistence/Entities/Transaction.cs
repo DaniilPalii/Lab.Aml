@@ -1,21 +1,22 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Lab.Aml.Domain.Transactions;
 
 namespace Lab.Aml.DataPersistence.Entities;
 
 public class Transaction
 {
 	[Key]
-	public required long Id { get; set; }
+	public long? Id { get; set; }
 
-	public required decimal Amount { get; set; }
+	public decimal? Amount { get; set; }
 
-	public required Currency Currency { get; set; }
+	public Currency? Currency { get; set; }
 
-	public required string Description { get; set; }
+	public string? Description { get; set; }
 
 	[ForeignKey(nameof(Customer))]
-	public required long CustomerId { get; set; }
+	public long? CustomerId { get; set; }
 
-	public required long Customer { get; set; }
+	public Customer? Customer { get; set; }
 }

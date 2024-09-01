@@ -1,4 +1,4 @@
-﻿namespace Lab.Aml.DataPersistence.Entities;
+﻿namespace Lab.Aml.Domain.Transactions;
 
 public enum Currency
 {
