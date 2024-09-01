@@ -1,4 +1,4 @@
-﻿namespace Lab.Aml.Domain.Customers.Queries.GetAll;
+﻿namespace Lab.Aml.Domain.Customers.Queries.Get;
 
 public interface IGetCustomersRepository
 {

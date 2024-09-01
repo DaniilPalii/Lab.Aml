@@ -3,7 +3,7 @@ using Lab.Aml.Domain.Transactions;
 using Lab.Aml.Domain.Transactions.Commands.Add;
 using Lab.Aml.Domain.Transactions.Commands.Delete;
 using Lab.Aml.Domain.Transactions.Commands.Update;
-using Lab.Aml.Domain.Transactions.Queries.GetAll;
+using Lab.Aml.Domain.Transactions.Queries.Get;
 using Lab.Aml.Domain.Transactions.Queries.GetById;
 using Microsoft.EntityFrameworkCore;
 
@@ -28,18 +28,24 @@ public sealed class TransactionRepository(AppDbContext dbContext)
 			});
 	}
 
-	public async Task<IEnumerable<Transaction>> GetAllAsync(CancellationToken cancellationToken)
+	public async Task<IEnumerable<Transaction>> GetAsync(
+		CancellationToken cancellationToken,
+		long? customerId = null)
 	{
-		return await dbContext.Transactions
-			.Select(e => e.ToDomainValue())
+		var query = customerId is not null
+			? dbContext.Transactions.Where(t => t.CustomerId == customerId)
+			: dbContext.Transactions.AsQueryable();
+
+		return await query
+			.Select(t => t.ToDomainValue())
 			.ToListAsync(cancellationToken);
 	}
 
 	public async Task<Transaction?> GetByIdAsync(long id, CancellationToken cancellationToken)
 	{
 		return await dbContext.Transactions
-			.Where(e => e.Id == id)
-			.Select(e => e.ToDomainValue())
+			.Where(t => t.Id == id)
+			.Select(t => t.ToDomainValue())
 			.FirstOrDefaultAsync(cancellationToken);
 	}
 

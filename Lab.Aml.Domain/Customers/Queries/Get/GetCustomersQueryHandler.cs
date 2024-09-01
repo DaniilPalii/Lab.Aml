@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace Lab.Aml.Domain.Customers.Queries.GetAll;
+namespace Lab.Aml.Domain.Customers.Queries.Get;
 
 public sealed class GetCustomersQueryHandler(IGetCustomersRepository repository)
 	: IRequestHandler<GetCustomersQuery, IEnumerable<Customer>>

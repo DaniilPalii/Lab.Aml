@@ -2,13 +2,13 @@
 using Lab.Aml.Domain.Customers.Commands.Add;
 using Lab.Aml.Domain.Customers.Commands.Delete;
 using Lab.Aml.Domain.Customers.Commands.Update;
-using Lab.Aml.Domain.Customers.Queries.GetAll;
+using Lab.Aml.Domain.Customers.Queries.Get;
 using Lab.Aml.Domain.Customers.Queries.GetById;
 using Lab.Aml.Domain.Transactions;
 using Lab.Aml.Domain.Transactions.Commands.Add;
 using Lab.Aml.Domain.Transactions.Commands.Delete;
 using Lab.Aml.Domain.Transactions.Commands.Update;
-using Lab.Aml.Domain.Transactions.Queries.GetAll;
+using Lab.Aml.Domain.Transactions.Queries.Get;
 using Lab.Aml.Domain.Transactions.Queries.GetById;
 
 namespace Lab.Aml.WebApi;
