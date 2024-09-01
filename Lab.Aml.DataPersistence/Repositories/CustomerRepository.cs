@@ -1,6 +1,7 @@
 ﻿using Lab.Aml.DataPersistence.Context;
 using Lab.Aml.Domain.Customers;
 using Lab.Aml.Domain.Customers.Commands.Add;
+using Lab.Aml.Domain.Customers.Commands.Delete;
 using Lab.Aml.Domain.Customers.Commands.Update;
 using Lab.Aml.Domain.Customers.Queries.GetAll;
 using Lab.Aml.Domain.Customers.Queries.GetById;
@@ -12,7 +13,8 @@ public sealed class CustomerRepository(AppDbContext dbContext)
 	: IAddCustomerRepository,
 		IGetAllCustomersRepository,
 		IGetCustomerByIdRepository,
-		IUpdateCustomerRepository
+		IUpdateCustomerRepository,
+		IDeleteCustomerRepository
 {
 	public void Add(AddCustomerCommand customer)
 	{
@@ -52,6 +54,11 @@ public sealed class CustomerRepository(AppDbContext dbContext)
 				Birthdate = customer.Birthdate,
 				Address = customer.Address,
 			});
+	}
+
+	public void Delete(long id)
+	{
+		dbContext.Customers.Remove(new Entities.Customer { Id = id });
 	}
 
 	public async Task SaveChangesAsync(CancellationToken cancellationToken)

@@ -1,4 +1,5 @@
 using Lab.Aml.Domain.Customers;
+using Lab.Aml.Domain.Customers.Commands.Delete;
 using Lab.Aml.Domain.Customers.Queries.GetAll;
 using Lab.Aml.Domain.Customers.Queries.GetById;
 using Lab.Aml.WebApi.TransferObjects;
@@ -46,6 +47,14 @@ public sealed class CustomerController(IMediator mediator) : ControllerBase
 	{
 		return mediator.Send(
 			customer.ToCommand(id),
+			cancellationToken);
+	}
+
+	[HttpDelete("{id:long}")]
+	public Task Delete(long id, CancellationToken cancellationToken)
+	{
+		return mediator.Send(
+			new DeleteCustomerCommand(id),
 			cancellationToken);
 	}
 }
