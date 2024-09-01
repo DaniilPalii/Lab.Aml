@@ -19,4 +19,14 @@ public class Transaction
 	public long? CustomerId { get; set; }
 
 	public Customer? Customer { get; set; }
+
+	public Domain.Transactions.Transaction ToDomainValue()
+	{
+		return new(
+			Id: Id!.Value,
+			Amount: Amount!.Value,
+			Currency: Currency!.Value,
+			Description: Description!,
+			CustomerId: CustomerId!.Value);
+	}
 }
