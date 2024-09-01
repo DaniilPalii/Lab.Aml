@@ -11,7 +11,7 @@ namespace Lab.Aml.DataPersistence.Repositories;
 
 public sealed class TransactionRepository(AppDbContext dbContext)
 	: IAddTransactionRepository,
-		IGetAllTransactionsRepository,
+		IGetTransactionsRepository,
 		IGetTransactionByIdRepository,
 		IUpdateTransactionRepository,
 		IDeleteTransactionRepository

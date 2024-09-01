@@ -27,7 +27,7 @@ public sealed class TransactionController(IMediator mediator) : ControllerBase
 	public Task<IEnumerable<Transaction>> Get(CancellationToken cancellationToken)
 	{
 		return mediator.Send(
-			new GetAllTransactionsQuery(),
+			new GetTransactionsQuery(),
 			cancellationToken);
 	}
 

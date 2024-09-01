@@ -21,13 +21,13 @@ internal static class Services
 			configuration => configuration.RegisterServicesFromAssemblyContaining<Currency>());
 
 		builder.Services.AddScoped<IAddCustomerRepository, CustomerRepository>();
-		builder.Services.AddScoped<IGetAllCustomersRepository, CustomerRepository>();
+		builder.Services.AddScoped<IGetCustomersRepository, CustomerRepository>();
 		builder.Services.AddScoped<IGetCustomerByIdRepository, CustomerRepository>();
 		builder.Services.AddScoped<IUpdateCustomerRepository, CustomerRepository>();
 		builder.Services.AddScoped<IDeleteCustomerRepository, CustomerRepository>();
 
 		builder.Services.AddScoped<IAddTransactionRepository, TransactionRepository>();
-		builder.Services.AddScoped<IGetAllTransactionsRepository, TransactionRepository>();
+		builder.Services.AddScoped<IGetTransactionsRepository, TransactionRepository>();
 		builder.Services.AddScoped<IGetTransactionByIdRepository, TransactionRepository>();
 		builder.Services.AddScoped<IUpdateTransactionRepository, TransactionRepository>();
 		builder.Services.AddScoped<IDeleteTransactionRepository, TransactionRepository>();

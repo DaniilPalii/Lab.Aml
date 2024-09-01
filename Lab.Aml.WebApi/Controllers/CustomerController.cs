@@ -24,7 +24,7 @@ public sealed class CustomerController(IMediator mediator) : ControllerBase
 	public Task<IEnumerable<Customer>> Get(CancellationToken cancellationToken)
 	{
 		return mediator.Send(
-			new GetAllCustomersQuery(),
+			new GetCustomersQuery(),
 			cancellationToken);
 	}
 

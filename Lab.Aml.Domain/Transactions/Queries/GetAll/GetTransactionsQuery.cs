@@ -2,5 +2,5 @@
 
 namespace Lab.Aml.Domain.Transactions.Queries.GetAll;
 
-public sealed record GetAllTransactionsQuery
+public sealed record GetTransactionsQuery
 	: IRequest<IEnumerable<Transaction>>;

@@ -11,7 +11,7 @@ namespace Lab.Aml.DataPersistence.Repositories;
 
 public sealed class CustomerRepository(AppDbContext dbContext)
 	: IAddCustomerRepository,
-		IGetAllCustomersRepository,
+		IGetCustomersRepository,
 		IGetCustomerByIdRepository,
 		IUpdateCustomerRepository,
 		IDeleteCustomerRepository

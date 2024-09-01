@@ -2,5 +2,5 @@
 
 namespace Lab.Aml.Domain.Customers.Queries.GetAll;
 
-public sealed record GetAllCustomersQuery
+public sealed record GetCustomersQuery
 	: IRequest<IEnumerable<Customer>>;
