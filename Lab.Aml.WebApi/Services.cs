@@ -16,5 +16,6 @@ internal static class Services
 		builder.Services.AddScoped<IAddCustomerRepository, CustomerRepository>();
 		builder.Services.AddScoped<IGetAllCustomersRepository, CustomerRepository>();
 		builder.Services.AddScoped<IGetCustomerByIdRepository, CustomerRepository>();
+		builder.Services.AddScoped<IUpdateCustomerRepository, CustomerRepository>();
 	}
 }

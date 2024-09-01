@@ -1,7 +1,7 @@
 using Lab.Aml.Domain.Customers;
-using Lab.Aml.Domain.Customers.Commands.Add;
 using Lab.Aml.Domain.Customers.Queries.GetAll;
 using Lab.Aml.Domain.Customers.Queries.GetById;
+using Lab.Aml.WebApi.TransferObjects;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,18 +9,22 @@ namespace Lab.Aml.WebApi.Controllers;
 
 [ApiController]
 [Route("customers")]
-public class CustomerController(IMediator mediator) : ControllerBase
+public sealed class CustomerController(IMediator mediator) : ControllerBase
 {
 	[HttpPost]
-	public Task Add(AddCustomerCommand customer, CancellationToken cancellationToken)
+	public Task Add(AddingCustomer customer, CancellationToken cancellationToken)
 	{
-		return mediator.Send(customer, cancellationToken);
+		return mediator.Send(
+			customer.ToCommand(),
+			cancellationToken);
 	}
 
 	[HttpGet]
 	public Task<IEnumerable<Customer>> Get(CancellationToken cancellationToken)
 	{
-		return mediator.Send(new GetAllCustomersQuery(), cancellationToken);
+		return mediator.Send(
+			new GetAllCustomersQuery(),
+			cancellationToken);
 	}
 
 	[HttpGet("{id:long}")]
@@ -28,10 +32,20 @@ public class CustomerController(IMediator mediator) : ControllerBase
 	[ProducesResponseType(StatusCodes.Status404NotFound)]
 	public async Task<ActionResult<Customer>> GetById(long id, CancellationToken cancellationToken)
 	{
-		var customer = await mediator.Send(new GetCustomerByIdQuery(id), cancellationToken);
+		var customer = await mediator.Send(
+			new GetCustomerByIdQuery(id),
+			cancellationToken);
 
 		return customer is not null
 			? customer
 			: NotFound();
+	}
+
+	[HttpPut("{id:long}")]
+	public Task Update(long id, UpdatingCustomer customer, CancellationToken cancellationToken)
+	{
+		return mediator.Send(
+			customer.ToCommand(id),
+			cancellationToken);
 	}
 }

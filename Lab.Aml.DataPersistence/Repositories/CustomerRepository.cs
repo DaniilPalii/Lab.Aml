@@ -10,7 +10,8 @@ namespace Lab.Aml.DataPersistence.Repositories;
 public sealed class CustomerRepository(AppDbContext dbContext)
 	: IAddCustomerRepository,
 		IGetAllCustomersRepository,
-		IGetCustomerByIdRepository
+		IGetCustomerByIdRepository,
+		IUpdateCustomerRepository
 {
 	public void Add(AddCustomerCommand customer)
 	{
@@ -37,6 +38,19 @@ public sealed class CustomerRepository(AppDbContext dbContext)
 			.Where(e => e.Id == id)
 			.Select(e => e.ToDomainValue())
 			.FirstOrDefaultAsync(cancellationToken);
+	}
+
+	public void Update(UpdateCustomerCommand customer)
+	{
+		dbContext.Customers.Update(
+			new Entities.Customer
+			{
+				Id = customer.Id,
+				Name = customer.Name,
+				Surname = customer.Surname,
+				Birthdate = customer.Birthdate,
+				Address = customer.Address,
+			});
 	}
 
 	public async Task SaveChangesAsync(CancellationToken cancellationToken)
