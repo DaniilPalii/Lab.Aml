@@ -19,13 +19,11 @@ public class Customer
 
 	public Domain.Customers.Customer ToDomainValue()
 	{
-		return new()
-		{
-			Id = Id!.Value,
-			Name = Name!,
-			Surname = Surname!,
-			Birthdate = Birthdate!.Value,
-			Address = Address!,
-		};
+		return new(
+			Id: Id!.Value,
+			Name: Name!,
+			Surname: Surname!,
+			Birthdate: Birthdate!.Value,
+			Address: Address!);
 	}
 }
