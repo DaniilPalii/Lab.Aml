@@ -236,3 +236,165 @@ GO
 COMMIT;
 GO
 
+BEGIN TRANSACTION;
+GO
+
+IF NOT EXISTS (
+    SELECT * FROM [__EFMigrationsHistory]
+    WHERE [MigrationId] = N'20240902163250_AddSuspicionToTransaction'
+)
+BEGIN
+    DECLARE @var9 sysname;
+    SELECT @var9 = [d].[name]
+    FROM [sys].[default_constraints] [d]
+    INNER JOIN [sys].[columns] [c] ON [d].[parent_column_id] = [c].[column_id] AND [d].[parent_object_id] = [c].[object_id]
+    WHERE ([d].[parent_object_id] = OBJECT_ID(N'[Transactions]') AND [c].[name] = N'Description');
+    IF @var9 IS NOT NULL EXEC(N'ALTER TABLE [Transactions] DROP CONSTRAINT [' + @var9 + '];');
+    EXEC(N'UPDATE [Transactions] SET [Description] = N'''' WHERE [Description] IS NULL');
+    ALTER TABLE [Transactions] ALTER COLUMN [Description] nvarchar(max) NOT NULL;
+    ALTER TABLE [Transactions] ADD DEFAULT N'' FOR [Description];
+END;
+GO
+
+IF NOT EXISTS (
+    SELECT * FROM [__EFMigrationsHistory]
+    WHERE [MigrationId] = N'20240902163250_AddSuspicionToTransaction'
+)
+BEGIN
+    DECLARE @var10 sysname;
+    SELECT @var10 = [d].[name]
+    FROM [sys].[default_constraints] [d]
+    INNER JOIN [sys].[columns] [c] ON [d].[parent_column_id] = [c].[column_id] AND [d].[parent_object_id] = [c].[object_id]
+    WHERE ([d].[parent_object_id] = OBJECT_ID(N'[Transactions]') AND [c].[name] = N'Currency');
+    IF @var10 IS NOT NULL EXEC(N'ALTER TABLE [Transactions] DROP CONSTRAINT [' + @var10 + '];');
+    EXEC(N'UPDATE [Transactions] SET [Currency] = 0 WHERE [Currency] IS NULL');
+    ALTER TABLE [Transactions] ALTER COLUMN [Currency] int NOT NULL;
+    ALTER TABLE [Transactions] ADD DEFAULT 0 FOR [Currency];
+END;
+GO
+
+IF NOT EXISTS (
+    SELECT * FROM [__EFMigrationsHistory]
+    WHERE [MigrationId] = N'20240902163250_AddSuspicionToTransaction'
+)
+BEGIN
+    DECLARE @var11 sysname;
+    SELECT @var11 = [d].[name]
+    FROM [sys].[default_constraints] [d]
+    INNER JOIN [sys].[columns] [c] ON [d].[parent_column_id] = [c].[column_id] AND [d].[parent_object_id] = [c].[object_id]
+    WHERE ([d].[parent_object_id] = OBJECT_ID(N'[Transactions]') AND [c].[name] = N'Amount');
+    IF @var11 IS NOT NULL EXEC(N'ALTER TABLE [Transactions] DROP CONSTRAINT [' + @var11 + '];');
+    EXEC(N'UPDATE [Transactions] SET [Amount] = 0.0 WHERE [Amount] IS NULL');
+    ALTER TABLE [Transactions] ALTER COLUMN [Amount] decimal(18,2) NOT NULL;
+    ALTER TABLE [Transactions] ADD DEFAULT 0.0 FOR [Amount];
+END;
+GO
+
+IF NOT EXISTS (
+    SELECT * FROM [__EFMigrationsHistory]
+    WHERE [MigrationId] = N'20240902163250_AddSuspicionToTransaction'
+)
+BEGIN
+    ALTER TABLE [Transactions] ADD [CreationDate] datetime2 NOT NULL DEFAULT '0001-01-01T00:00:00.0000000';
+END;
+GO
+
+IF NOT EXISTS (
+    SELECT * FROM [__EFMigrationsHistory]
+    WHERE [MigrationId] = N'20240902163250_AddSuspicionToTransaction'
+)
+BEGIN
+    ALTER TABLE [Transactions] ADD [IsSuspicious] bit NULL;
+END;
+GO
+
+IF NOT EXISTS (
+    SELECT * FROM [__EFMigrationsHistory]
+    WHERE [MigrationId] = N'20240902163250_AddSuspicionToTransaction'
+)
+BEGIN
+    ALTER TABLE [Transactions] ADD [TransactionType] int NOT NULL DEFAULT 0;
+END;
+GO
+
+IF NOT EXISTS (
+    SELECT * FROM [__EFMigrationsHistory]
+    WHERE [MigrationId] = N'20240902163250_AddSuspicionToTransaction'
+)
+BEGIN
+    DECLARE @var12 sysname;
+    SELECT @var12 = [d].[name]
+    FROM [sys].[default_constraints] [d]
+    INNER JOIN [sys].[columns] [c] ON [d].[parent_column_id] = [c].[column_id] AND [d].[parent_object_id] = [c].[object_id]
+    WHERE ([d].[parent_object_id] = OBJECT_ID(N'[Customers]') AND [c].[name] = N'Surname');
+    IF @var12 IS NOT NULL EXEC(N'ALTER TABLE [Customers] DROP CONSTRAINT [' + @var12 + '];');
+    EXEC(N'UPDATE [Customers] SET [Surname] = N'''' WHERE [Surname] IS NULL');
+    ALTER TABLE [Customers] ALTER COLUMN [Surname] nvarchar(max) NOT NULL;
+    ALTER TABLE [Customers] ADD DEFAULT N'' FOR [Surname];
+END;
+GO
+
+IF NOT EXISTS (
+    SELECT * FROM [__EFMigrationsHistory]
+    WHERE [MigrationId] = N'20240902163250_AddSuspicionToTransaction'
+)
+BEGIN
+    DECLARE @var13 sysname;
+    SELECT @var13 = [d].[name]
+    FROM [sys].[default_constraints] [d]
+    INNER JOIN [sys].[columns] [c] ON [d].[parent_column_id] = [c].[column_id] AND [d].[parent_object_id] = [c].[object_id]
+    WHERE ([d].[parent_object_id] = OBJECT_ID(N'[Customers]') AND [c].[name] = N'Name');
+    IF @var13 IS NOT NULL EXEC(N'ALTER TABLE [Customers] DROP CONSTRAINT [' + @var13 + '];');
+    EXEC(N'UPDATE [Customers] SET [Name] = N'''' WHERE [Name] IS NULL');
+    ALTER TABLE [Customers] ALTER COLUMN [Name] nvarchar(max) NOT NULL;
+    ALTER TABLE [Customers] ADD DEFAULT N'' FOR [Name];
+END;
+GO
+
+IF NOT EXISTS (
+    SELECT * FROM [__EFMigrationsHistory]
+    WHERE [MigrationId] = N'20240902163250_AddSuspicionToTransaction'
+)
+BEGIN
+    DECLARE @var14 sysname;
+    SELECT @var14 = [d].[name]
+    FROM [sys].[default_constraints] [d]
+    INNER JOIN [sys].[columns] [c] ON [d].[parent_column_id] = [c].[column_id] AND [d].[parent_object_id] = [c].[object_id]
+    WHERE ([d].[parent_object_id] = OBJECT_ID(N'[Customers]') AND [c].[name] = N'Birthdate');
+    IF @var14 IS NOT NULL EXEC(N'ALTER TABLE [Customers] DROP CONSTRAINT [' + @var14 + '];');
+    EXEC(N'UPDATE [Customers] SET [Birthdate] = ''0001-01-01'' WHERE [Birthdate] IS NULL');
+    ALTER TABLE [Customers] ALTER COLUMN [Birthdate] date NOT NULL;
+    ALTER TABLE [Customers] ADD DEFAULT '0001-01-01' FOR [Birthdate];
+END;
+GO
+
+IF NOT EXISTS (
+    SELECT * FROM [__EFMigrationsHistory]
+    WHERE [MigrationId] = N'20240902163250_AddSuspicionToTransaction'
+)
+BEGIN
+    DECLARE @var15 sysname;
+    SELECT @var15 = [d].[name]
+    FROM [sys].[default_constraints] [d]
+    INNER JOIN [sys].[columns] [c] ON [d].[parent_column_id] = [c].[column_id] AND [d].[parent_object_id] = [c].[object_id]
+    WHERE ([d].[parent_object_id] = OBJECT_ID(N'[Customers]') AND [c].[name] = N'Address');
+    IF @var15 IS NOT NULL EXEC(N'ALTER TABLE [Customers] DROP CONSTRAINT [' + @var15 + '];');
+    EXEC(N'UPDATE [Customers] SET [Address] = N'''' WHERE [Address] IS NULL');
+    ALTER TABLE [Customers] ALTER COLUMN [Address] nvarchar(max) NOT NULL;
+    ALTER TABLE [Customers] ADD DEFAULT N'' FOR [Address];
+END;
+GO
+
+IF NOT EXISTS (
+    SELECT * FROM [__EFMigrationsHistory]
+    WHERE [MigrationId] = N'20240902163250_AddSuspicionToTransaction'
+)
+BEGIN
+    INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+    VALUES (N'20240902163250_AddSuspicionToTransaction', N'8.0.8');
+END;
+GO
+
+COMMIT;
+GO
+

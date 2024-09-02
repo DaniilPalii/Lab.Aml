@@ -7,12 +7,16 @@ public class Customer
 	[Key]
 	public long? Id { get; set; }
 
+	[Required]
 	public string? Name { get; set; }
 
+	[Required]
 	public string? Surname { get; set; }
 
+	[Required]
 	public DateOnly? Birthdate { get; set; }
 
+	[Required]
 	public string? Address { get; set; }
 
 	public List<Transaction>? Transactions { get; set; }

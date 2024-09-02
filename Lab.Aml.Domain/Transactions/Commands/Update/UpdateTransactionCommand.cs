@@ -6,6 +6,8 @@ public sealed record UpdateTransactionCommand(
 	long Id,
 	decimal Amount,
 	Currency Currency,
+	TransactionType TransactionType,
+	DateTime CreationDate,
 	string Description,
 	long CustomerId)
 	: IRequest;

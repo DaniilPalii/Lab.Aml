@@ -23,6 +23,8 @@ public sealed class TransactionRepository(AppDbContext dbContext)
 			{
 				Amount = transaction.Amount,
 				Currency = transaction.Currency,
+				CreationDate = transaction.CreationDate,
+				TransactionType = transaction.TransactionType,
 				CustomerId = transaction.CustomerId,
 				Description = transaction.Description,
 			});
@@ -57,6 +59,8 @@ public sealed class TransactionRepository(AppDbContext dbContext)
 				Id = transaction.Id,
 				Amount = transaction.Amount,
 				Currency = transaction.Currency,
+				CreationDate = transaction.CreationDate,
+				TransactionType = transaction.TransactionType,
 				CustomerId = transaction.CustomerId,
 				Description = transaction.Description,
 			});
