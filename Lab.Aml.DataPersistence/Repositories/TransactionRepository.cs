@@ -2,6 +2,7 @@
 using Lab.Aml.Domain.Transactions;
 using Lab.Aml.Domain.Transactions.Commands.Add;
 using Lab.Aml.Domain.Transactions.Commands.Delete;
+using Lab.Aml.Domain.Transactions.Commands.MarkAsSuspicious;
 using Lab.Aml.Domain.Transactions.Commands.Update;
 using Lab.Aml.Domain.Transactions.Commands.Verify;
 using Lab.Aml.Domain.Transactions.Queries.Get;
@@ -16,7 +17,8 @@ public sealed class TransactionRepository(AppDbContext dbContext)
 		IGetTransactionByIdRepository,
 		IUpdateTransactionRepository,
 		IDeleteTransactionRepository,
-		IVerifyTransactionsRepository
+		IVerifyTransactionsRepository,
+		IMarkTransactionsAsSuspiciousRepository
 {
 	public void Add(AddTransactionCommand transaction)
 	{
@@ -118,6 +120,11 @@ public sealed class TransactionRepository(AppDbContext dbContext)
 		return previousTransactions
 			.Concat([targetTransaction])
 			.Concat(nextTransactions);
+	}
+
+	public void MarkAsSuspicious(long id)
+	{
+		SetSuspicion(id, isSuspicious: true);
 	}
 
 	public void SetSuspicion(long id, bool isSuspicious)

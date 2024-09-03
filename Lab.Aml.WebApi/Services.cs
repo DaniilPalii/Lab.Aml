@@ -10,6 +10,7 @@ using Lab.Aml.Domain.Limits.Queries.GetLatest;
 using Lab.Aml.Domain.Transactions;
 using Lab.Aml.Domain.Transactions.Commands.Add;
 using Lab.Aml.Domain.Transactions.Commands.Delete;
+using Lab.Aml.Domain.Transactions.Commands.MarkAsSuspicious;
 using Lab.Aml.Domain.Transactions.Commands.Update;
 using Lab.Aml.Domain.Transactions.Commands.Verify;
 using Lab.Aml.Domain.Transactions.Queries.Get;
@@ -25,16 +26,17 @@ internal static class Services
 			configuration => configuration.RegisterServicesFromAssemblyContaining<Currency>());
 
 		builder.Services.AddScoped<IAddCustomerRepository, CustomerRepository>();
-		builder.Services.AddScoped<IGetCustomersRepository, CustomerRepository>();
-		builder.Services.AddScoped<IGetCustomerByIdRepository, CustomerRepository>();
-		builder.Services.AddScoped<IUpdateCustomerRepository, CustomerRepository>();
 		builder.Services.AddScoped<IDeleteCustomerRepository, CustomerRepository>();
+		builder.Services.AddScoped<IGetCustomerByIdRepository, CustomerRepository>();
+		builder.Services.AddScoped<IGetCustomersRepository, CustomerRepository>();
+		builder.Services.AddScoped<IUpdateCustomerRepository, CustomerRepository>();
 
 		builder.Services.AddScoped<IAddTransactionRepository, TransactionRepository>();
-		builder.Services.AddScoped<IGetTransactionsRepository, TransactionRepository>();
-		builder.Services.AddScoped<IGetTransactionByIdRepository, TransactionRepository>();
-		builder.Services.AddScoped<IUpdateTransactionRepository, TransactionRepository>();
 		builder.Services.AddScoped<IDeleteTransactionRepository, TransactionRepository>();
+		builder.Services.AddScoped<IGetTransactionByIdRepository, TransactionRepository>();
+		builder.Services.AddScoped<IGetTransactionsRepository, TransactionRepository>();
+		builder.Services.AddScoped<IMarkTransactionsAsSuspiciousRepository, TransactionRepository>();
+		builder.Services.AddScoped<IUpdateTransactionRepository, TransactionRepository>();
 		builder.Services.AddScoped<IVerifyTransactionsRepository, TransactionRepository>();
 
 		builder.Services.AddScoped<IAddLimitRepository, LimitRepository>();

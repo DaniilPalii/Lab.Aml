@@ -1,5 +1,6 @@
 using Lab.Aml.Domain.Transactions;
 using Lab.Aml.Domain.Transactions.Commands.Delete;
+using Lab.Aml.Domain.Transactions.Commands.MarkAsSuspicious;
 using Lab.Aml.Domain.Transactions.Queries.Get;
 using Lab.Aml.Domain.Transactions.Queries.GetById;
 using Lab.Aml.WebApi.TransferObjects;
@@ -65,6 +66,14 @@ public sealed class TransactionController(IMediator mediator) : ControllerBase
 	{
 		return mediator.Send(
 			new GetTransactionsQuery(IsSuspicious: true),
+			cancellationToken);
+	}
+
+	[HttpPut("suspicious")]
+	public Task MarkAsSuspicious(long id, CancellationToken cancellationToken)
+	{
+		return mediator.Send(
+			new MarkTransactionsAsSuspiciousCommand(id),
 			cancellationToken);
 	}
 }
