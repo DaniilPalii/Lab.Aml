@@ -19,10 +19,17 @@ internal static class BackgroundJobs
 	{
 		application.UseHangfireDashboard();
 
+		StartRecurringTransactionVerification(application);
+	}
+
+	private static void StartRecurringTransactionVerification(WebApplication application)
+	{
+		var verificationMinuteInterval = int.Parse(application.Configuration["VerificationMinuteInterval"]!);
+
 		RecurringJob.AddOrUpdate<IMediator>(
 			recurringJobId: "VerifyTransactions",
 			mediator => mediator.Send(new VerifyTransactionsCommand(), CancellationToken.None),
-			MinuteIntervalCronExpression(2));
+			MinuteIntervalCronExpression(verificationMinuteInterval));
 	}
 
 	private static string MinuteIntervalCronExpression(int minutes)
