@@ -33,14 +33,18 @@ public sealed class TransactionRepository(AppDbContext dbContext)
 	}
 
 	public async Task<IEnumerable<Transaction>> GetAsync(
-		CancellationToken cancellationToken,
-		long? customerId = null)
+		GetTransactionsQuery query,
+		CancellationToken cancellationToken)
 	{
-		var query = customerId is not null
-			? dbContext.Transactions.Where(t => t.CustomerId == customerId)
-			: dbContext.Transactions.AsQueryable();
+		var queryable = dbContext.Transactions.AsQueryable();
 
-		return await query
+		if (query.CustomerId is not null)
+			queryable = queryable.Where(t => t.CustomerId == query.CustomerId);
+
+		if (query.IsSuspicious is not null)
+			queryable = queryable.Where(t => t.IsSuspicious == query.IsSuspicious);
+
+		return await queryable
 			.Select(t => t.ToDomainValue())
 			.ToListAsync(cancellationToken);
 	}

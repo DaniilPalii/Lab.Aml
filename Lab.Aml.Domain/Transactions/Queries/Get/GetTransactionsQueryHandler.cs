@@ -7,6 +7,6 @@ public sealed class GetTransactionsQueryHandler(IGetTransactionsRepository repos
 {
 	public Task<IEnumerable<Transaction>> Handle(GetTransactionsQuery request, CancellationToken cancellationToken)
 	{
-		return repository.GetAsync(cancellationToken, request.CustomerId);
+		return repository.GetAsync(request, cancellationToken);
 	}
 }

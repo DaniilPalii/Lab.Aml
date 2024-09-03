@@ -3,6 +3,6 @@
 public interface IGetTransactionsRepository
 {
 	Task<IEnumerable<Transaction>> GetAsync(
-		CancellationToken cancellationToken,
-		long? CustomerId = null);
+		GetTransactionsQuery query,
+		CancellationToken cancellationToken);
 }

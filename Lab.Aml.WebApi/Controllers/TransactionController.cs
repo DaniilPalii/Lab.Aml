@@ -59,4 +59,12 @@ public sealed class TransactionController(IMediator mediator) : ControllerBase
 			new DeleteTransactionCommand(id),
 			cancellationToken);
 	}
+
+	[HttpGet("suspicious")]
+	public Task<IEnumerable<Transaction>> GetSuspicious(CancellationToken cancellationToken)
+	{
+		return mediator.Send(
+			new GetTransactionsQuery(IsSuspicious: true),
+			cancellationToken);
+	}
 }
