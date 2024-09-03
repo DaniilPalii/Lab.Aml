@@ -28,9 +28,17 @@ public sealed class CustomerRepository(AppDbContext dbContext)
 			});
 	}
 
-	public async Task<List<Customer>> GetAllAsync(CancellationToken cancellationToken)
+	public async Task<List<Customer>> GetAsync(GetCustomersQuery query, CancellationToken cancellationToken)
 	{
-		return await dbContext.Customers
+		var queryable = dbContext.Customers.AsQueryable();
+
+		if (query.Name is not null)
+			queryable = queryable.Where(c => c.Name == query.Name);
+
+		if (query.Surname is not null)
+			queryable = queryable.Where(c => c.Surname == query.Surname);
+
+		return await queryable
 			.Select(e => e.ToDomainValue())
 			.ToListAsync(cancellationToken);
 	}

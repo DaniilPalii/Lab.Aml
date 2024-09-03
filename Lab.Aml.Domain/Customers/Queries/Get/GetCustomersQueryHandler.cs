@@ -7,6 +7,6 @@ public sealed class GetCustomersQueryHandler(IGetCustomersRepository repository)
 {
 	public Task<List<Customer>> Handle(GetCustomersQuery request, CancellationToken cancellationToken)
 	{
-		return repository.GetAllAsync(cancellationToken);
+		return repository.GetAsync(request, cancellationToken);
 	}
 }
