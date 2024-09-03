@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Lab.Aml.DataPersistence.Context;
 
-namespace Lab.Aml.DatabaseDesign.Seeding;
+namespace Lab.Aml.DatabaseDesign;
 
 public sealed class AppDbContextFactory : IDesignTimeDbContextFactory<AppDbContext>
 {

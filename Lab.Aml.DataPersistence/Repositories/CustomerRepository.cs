@@ -28,7 +28,7 @@ public sealed class CustomerRepository(AppDbContext dbContext)
 			});
 	}
 
-	public async Task<IEnumerable<Customer>> GetAllAsync(CancellationToken cancellationToken)
+	public async Task<List<Customer>> GetAllAsync(CancellationToken cancellationToken)
 	{
 		return await dbContext.Customers
 			.Select(e => e.ToDomainValue())

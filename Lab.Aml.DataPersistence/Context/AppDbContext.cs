@@ -9,4 +9,6 @@ public partial class AppDbContext(DbContextOptions<AppDbContext> options)
 	public virtual DbSet<Customer> Customers { get; set; }
 
 	public virtual DbSet<Transaction> Transactions { get; set; }
+
+	public virtual DbSet<Limit> Limits { get; set; }
 }

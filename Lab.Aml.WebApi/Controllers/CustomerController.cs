@@ -21,7 +21,7 @@ public sealed class CustomerController(IMediator mediator) : ControllerBase
 	}
 
 	[HttpGet]
-	public Task<IEnumerable<Customer>> Get(CancellationToken cancellationToken)
+	public Task<List<Customer>> Get(CancellationToken cancellationToken)
 	{
 		return mediator.Send(
 			new GetCustomersQuery(),

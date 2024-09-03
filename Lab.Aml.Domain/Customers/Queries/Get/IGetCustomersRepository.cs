@@ -2,5 +2,5 @@
 
 public interface IGetCustomersRepository
 {
-	Task<IEnumerable<Customer>> GetAllAsync(CancellationToken cancellationToken);
+	Task<List<Customer>> GetAllAsync(CancellationToken cancellationToken);
 }

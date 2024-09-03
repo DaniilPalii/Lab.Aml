@@ -398,3 +398,92 @@ GO
 COMMIT;
 GO
 
+BEGIN TRANSACTION;
+GO
+
+IF NOT EXISTS (
+    SELECT * FROM [__EFMigrationsHistory]
+    WHERE [MigrationId] = N'20240902204703_AddLimits'
+)
+BEGIN
+    CREATE TABLE [Limits] (
+        [Id] bigint NOT NULL IDENTITY,
+        [Currency] int NOT NULL,
+        [CreationDate] datetime2 NOT NULL,
+        [Amount] decimal(18,2) NOT NULL,
+        [Count] int NOT NULL,
+        [Range] time NOT NULL,
+        CONSTRAINT [PK_Limits] PRIMARY KEY ([Id])
+    );
+END;
+GO
+
+IF NOT EXISTS (
+    SELECT * FROM [__EFMigrationsHistory]
+    WHERE [MigrationId] = N'20240902204703_AddLimits'
+)
+BEGIN
+    INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+    VALUES (N'20240902204703_AddLimits', N'8.0.8');
+END;
+GO
+
+COMMIT;
+GO
+
+BEGIN TRANSACTION;
+GO
+
+IF NOT EXISTS (
+    SELECT * FROM [__EFMigrationsHistory]
+    WHERE [MigrationId] = N'20240903052007_AddIsObsoleteToLimit'
+)
+BEGIN
+    ALTER TABLE [Limits] ADD [IsObsolete] bit NOT NULL DEFAULT CAST(0 AS bit);
+END;
+GO
+
+IF NOT EXISTS (
+    SELECT * FROM [__EFMigrationsHistory]
+    WHERE [MigrationId] = N'20240903052007_AddIsObsoleteToLimit'
+)
+BEGIN
+    INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+    VALUES (N'20240903052007_AddIsObsoleteToLimit', N'8.0.8');
+END;
+GO
+
+COMMIT;
+GO
+
+BEGIN TRANSACTION;
+GO
+
+IF NOT EXISTS (
+    SELECT * FROM [__EFMigrationsHistory]
+    WHERE [MigrationId] = N'20240903054937_RemoveIsObsoleteFromLimit'
+)
+BEGIN
+    DECLARE @var16 sysname;
+    SELECT @var16 = [d].[name]
+    FROM [sys].[default_constraints] [d]
+    INNER JOIN [sys].[columns] [c] ON [d].[parent_column_id] = [c].[column_id] AND [d].[parent_object_id] = [c].[object_id]
+    WHERE ([d].[parent_object_id] = OBJECT_ID(N'[Limits]') AND [c].[name] = N'IsObsolete');
+    IF @var16 IS NOT NULL EXEC(N'ALTER TABLE [Limits] DROP CONSTRAINT [' + @var16 + '];');
+    ALTER TABLE [Limits] DROP COLUMN [IsObsolete];
+END;
+GO
+
+IF NOT EXISTS (
+    SELECT * FROM [__EFMigrationsHistory]
+    WHERE [MigrationId] = N'20240903054937_RemoveIsObsoleteFromLimit'
+)
+BEGIN
+    INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+    VALUES (N'20240903054937_RemoveIsObsoleteFromLimit', N'8.0.8');
+END;
+GO
+
+COMMIT;
+GO
+

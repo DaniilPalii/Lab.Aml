@@ -3,4 +3,4 @@
 namespace Lab.Aml.Domain.Customers.Queries.Get;
 
 public sealed record GetCustomersQuery
-	: IRequest<IEnumerable<Customer>>;
+	: IRequest<List<Customer>>;
