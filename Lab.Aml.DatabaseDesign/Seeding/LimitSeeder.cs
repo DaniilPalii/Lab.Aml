@@ -21,7 +21,6 @@ internal static class LimitSeeder
 				Range = TimeSpan.FromMinutes(5),
 				CreationDate = new DateTime(2000, 1, 1),
 			},
-
 			new()
 			{
 				Id = 2,
@@ -31,7 +30,6 @@ internal static class LimitSeeder
 				Range = TimeSpan.FromMinutes(5),
 				CreationDate = new DateTime(2000, 1, 1),
 			},
-
 			new()
 			{
 				Id = 3,
@@ -53,7 +51,6 @@ internal static class LimitSeeder
 				Range = TimeSpan.FromMinutes(5),
 				CreationDate = new DateTime(2024, 1, 1),
 			},
-
 			new()
 			{
 				Id = 5,
@@ -63,7 +60,6 @@ internal static class LimitSeeder
 				Range = TimeSpan.FromMinutes(6),
 				CreationDate = new DateTime(2024, 1, 1),
 			},
-
 			new()
 			{
 				Id = 6,
