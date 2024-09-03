@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using Lab.Aml.Domain.Transactions;
 
 namespace Lab.Aml.DataPersistence.Entities;
@@ -16,6 +17,7 @@ public class Limit
 
 	/// <summary><see cref="Transaction"/>s exceeding this amount will be marked as suspicious.</summary>
 	[Required]
+	[Column(TypeName = "decimal(18,4)")]
 	public decimal? Amount { get; set; }
 
 	/// <summary>

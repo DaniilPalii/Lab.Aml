@@ -10,6 +10,7 @@ public class Transaction
 	public long? Id { get; set; }
 
 	[Required]
+	[Column(TypeName = "decimal(18,4)")]
 	public decimal? Amount { get; set; }
 
 	[Required]
