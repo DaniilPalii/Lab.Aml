@@ -3,7 +3,7 @@ GO
 
 IF NOT EXISTS (
     SELECT * FROM [__EFMigrationsHistory]
-    WHERE [MigrationId] = N'20240903164744_SeedLimits'
+    WHERE [MigrationId] = N'20240903211114_SeedRequiredData'
 )
 BEGIN
     IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'Id', N'Amount', N'Count', N'CreationDate', N'Currency', N'Range') AND [object_id] = OBJECT_ID(N'[Limits]'))
@@ -22,11 +22,11 @@ GO
 
 IF NOT EXISTS (
     SELECT * FROM [__EFMigrationsHistory]
-    WHERE [MigrationId] = N'20240903164744_SeedLimits'
+    WHERE [MigrationId] = N'20240903211114_SeedRequiredData'
 )
 BEGIN
     INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
-    VALUES (N'20240903164744_SeedLimits', N'8.0.8');
+    VALUES (N'20240903211114_SeedRequiredData', N'8.0.8');
 END;
 GO
 

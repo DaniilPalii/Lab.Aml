@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Lab.Aml.DatabaseDesign.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240901093145_FixRelations")]
-    partial class FixRelations
+    [Migration("20240903211023_CreateTables")]
+    partial class CreateTables
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -34,20 +34,56 @@ namespace Lab.Aml.DatabaseDesign.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long?>("Id"));
 
                     b.Property<string>("Address")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateOnly?>("Birthdate")
+                        .IsRequired()
                         .HasColumnType("date");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Surname")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.ToTable("Customers");
+                });
+
+            modelBuilder.Entity("Lab.Aml.DataPersistence.Entities.Limit", b =>
+                {
+                    b.Property<long?>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long?>("Id"));
+
+                    b.Property<decimal?>("Amount")
+                        .IsRequired()
+                        .HasColumnType("decimal(18,4)");
+
+                    b.Property<int?>("Count")
+                        .IsRequired()
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("CreationDate")
+                        .IsRequired()
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Currency")
+                        .HasColumnType("int");
+
+                    b.Property<TimeSpan?>("Range")
+                        .IsRequired()
+                        .HasColumnType("time");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Limits");
                 });
 
             modelBuilder.Entity("Lab.Aml.DataPersistence.Entities.Transaction", b =>
@@ -59,16 +95,28 @@ namespace Lab.Aml.DatabaseDesign.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long?>("Id"));
 
                     b.Property<decimal?>("Amount")
-                        .HasColumnType("decimal(18,2)");
+                        .IsRequired()
+                        .HasColumnType("decimal(18,4)");
 
-                    b.Property<int?>("Currency")
+                    b.Property<DateTime?>("CreationDate")
+                        .IsRequired()
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Currency")
                         .HasColumnType("int");
 
                     b.Property<long?>("CustomerId")
                         .HasColumnType("bigint");
 
                     b.Property<string>("Description")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool?>("IsSuspicious")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("TransactionType")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 

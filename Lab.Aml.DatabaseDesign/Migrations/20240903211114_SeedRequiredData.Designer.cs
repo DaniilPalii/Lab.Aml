@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Lab.Aml.DatabaseDesign.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240902204703_AddLimits")]
-    partial class AddLimits
+    [Migration("20240903211114_SeedRequiredData")]
+    partial class SeedRequiredData
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -64,7 +64,7 @@ namespace Lab.Aml.DatabaseDesign.Migrations
 
                     b.Property<decimal?>("Amount")
                         .IsRequired()
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(18,4)");
 
                     b.Property<int?>("Count")
                         .IsRequired()
@@ -84,6 +84,62 @@ namespace Lab.Aml.DatabaseDesign.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Limits");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1L,
+                            Amount = 11000m,
+                            Count = 11,
+                            CreationDate = new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Currency = 1,
+                            Range = new TimeSpan(0, 0, 5, 0, 0)
+                        },
+                        new
+                        {
+                            Id = 2L,
+                            Amount = 12000m,
+                            Count = 12,
+                            CreationDate = new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Currency = 2,
+                            Range = new TimeSpan(0, 0, 5, 0, 0)
+                        },
+                        new
+                        {
+                            Id = 3L,
+                            Amount = 13000m,
+                            Count = 13,
+                            CreationDate = new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Currency = 3,
+                            Range = new TimeSpan(0, 0, 5, 0, 0)
+                        },
+                        new
+                        {
+                            Id = 4L,
+                            Amount = 21000m,
+                            Count = 21,
+                            CreationDate = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Currency = 1,
+                            Range = new TimeSpan(0, 0, 5, 0, 0)
+                        },
+                        new
+                        {
+                            Id = 5L,
+                            Amount = 22000m,
+                            Count = 22,
+                            CreationDate = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Currency = 2,
+                            Range = new TimeSpan(0, 0, 6, 0, 0)
+                        },
+                        new
+                        {
+                            Id = 6L,
+                            Amount = 23000m,
+                            Count = 23,
+                            CreationDate = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Currency = 3,
+                            Range = new TimeSpan(0, 0, 7, 0, 0)
+                        });
                 });
 
             modelBuilder.Entity("Lab.Aml.DataPersistence.Entities.Transaction", b =>
@@ -96,7 +152,7 @@ namespace Lab.Aml.DatabaseDesign.Migrations
 
                     b.Property<decimal?>("Amount")
                         .IsRequired()
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(18,4)");
 
                     b.Property<DateTime?>("CreationDate")
                         .IsRequired()

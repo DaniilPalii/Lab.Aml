@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Lab.Aml.DatabaseDesign.Migrations
 {
     /// <inheritdoc />
-    public partial class SeedLimits : Migration
+    public partial class SeedRequiredData : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

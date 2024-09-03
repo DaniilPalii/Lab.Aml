@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Lab.Aml.DatabaseDesign.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240903173649_SeedTransactions")]
-    partial class SeedTransactions
+    [Migration("20240903211143_SeedOptionalData")]
+    partial class SeedOptionalData
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

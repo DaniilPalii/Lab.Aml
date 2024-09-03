@@ -13,7 +13,7 @@ GO
 
 IF NOT EXISTS (
     SELECT * FROM [__EFMigrationsHistory]
-    WHERE [MigrationId] = N'20240831202330_Initialize'
+    WHERE [MigrationId] = N'20240903211023_CreateTables'
 )
 BEGIN
     CREATE TABLE [Customers] (
@@ -29,25 +29,44 @@ GO
 
 IF NOT EXISTS (
     SELECT * FROM [__EFMigrationsHistory]
-    WHERE [MigrationId] = N'20240831202330_Initialize'
+    WHERE [MigrationId] = N'20240903211023_CreateTables'
 )
 BEGIN
-    CREATE TABLE [Transactions] (
+    CREATE TABLE [Limits] (
         [Id] bigint NOT NULL IDENTITY,
-        [Amount] decimal(18,2) NOT NULL,
         [Currency] int NOT NULL,
-        [Description] nvarchar(max) NOT NULL,
-        [CustomerId] bigint NOT NULL,
-        [Customer] bigint NOT NULL,
-        CONSTRAINT [PK_Transactions] PRIMARY KEY ([Id]),
-        CONSTRAINT [FK_Transactions_Customers_CustomerId] FOREIGN KEY ([CustomerId]) REFERENCES [Customers] ([Id]) ON DELETE CASCADE
+        [CreationDate] datetime2 NOT NULL,
+        [Amount] decimal(18,4) NOT NULL,
+        [Count] int NOT NULL,
+        [Range] time NOT NULL,
+        CONSTRAINT [PK_Limits] PRIMARY KEY ([Id])
     );
 END;
 GO
 
 IF NOT EXISTS (
     SELECT * FROM [__EFMigrationsHistory]
-    WHERE [MigrationId] = N'20240831202330_Initialize'
+    WHERE [MigrationId] = N'20240903211023_CreateTables'
+)
+BEGIN
+    CREATE TABLE [Transactions] (
+        [Id] bigint NOT NULL IDENTITY,
+        [Amount] decimal(18,4) NOT NULL,
+        [Currency] int NOT NULL,
+        [TransactionType] int NOT NULL,
+        [CreationDate] datetime2 NOT NULL,
+        [Description] nvarchar(max) NOT NULL,
+        [IsSuspicious] bit NULL,
+        [CustomerId] bigint NULL,
+        CONSTRAINT [PK_Transactions] PRIMARY KEY ([Id]),
+        CONSTRAINT [FK_Transactions_Customers_CustomerId] FOREIGN KEY ([CustomerId]) REFERENCES [Customers] ([Id])
+    );
+END;
+GO
+
+IF NOT EXISTS (
+    SELECT * FROM [__EFMigrationsHistory]
+    WHERE [MigrationId] = N'20240903211023_CreateTables'
 )
 BEGIN
     CREATE INDEX [IX_Transactions_CustomerId] ON [Transactions] ([CustomerId]);
@@ -56,11 +75,11 @@ GO
 
 IF NOT EXISTS (
     SELECT * FROM [__EFMigrationsHistory]
-    WHERE [MigrationId] = N'20240831202330_Initialize'
+    WHERE [MigrationId] = N'20240903211023_CreateTables'
 )
 BEGIN
     INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
-    VALUES (N'20240831202330_Initialize', N'8.0.8');
+    VALUES (N'20240903211023_CreateTables', N'8.0.8');
 END;
 GO
 

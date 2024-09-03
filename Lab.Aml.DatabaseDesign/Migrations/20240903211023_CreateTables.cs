@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Lab.Aml.DatabaseDesign.Migrations
 {
     /// <inheritdoc />
-    public partial class Initialize : Migration
+    public partial class CreateTables : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -28,16 +28,35 @@ namespace Lab.Aml.DatabaseDesign.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Limits",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Currency = table.Column<int>(type: "int", nullable: false),
+                    CreationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Amount = table.Column<decimal>(type: "decimal(18,4)", nullable: false),
+                    Count = table.Column<int>(type: "int", nullable: false),
+                    Range = table.Column<TimeSpan>(type: "time", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Limits", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Transactions",
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Amount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Amount = table.Column<decimal>(type: "decimal(18,4)", nullable: false),
                     Currency = table.Column<int>(type: "int", nullable: false),
+                    TransactionType = table.Column<int>(type: "int", nullable: false),
+                    CreationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CustomerId = table.Column<long>(type: "bigint", nullable: false),
-                    Customer = table.Column<long>(type: "bigint", nullable: false)
+                    IsSuspicious = table.Column<bool>(type: "bit", nullable: true),
+                    CustomerId = table.Column<long>(type: "bigint", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -46,8 +65,7 @@ namespace Lab.Aml.DatabaseDesign.Migrations
                         name: "FK_Transactions_Customers_CustomerId",
                         column: x => x.CustomerId,
                         principalTable: "Customers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateIndex(
@@ -59,6 +77,9 @@ namespace Lab.Aml.DatabaseDesign.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "Limits");
+
             migrationBuilder.DropTable(
                 name: "Transactions");
 
