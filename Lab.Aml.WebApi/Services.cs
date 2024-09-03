@@ -11,6 +11,7 @@ using Lab.Aml.Domain.Transactions;
 using Lab.Aml.Domain.Transactions.Commands.Add;
 using Lab.Aml.Domain.Transactions.Commands.Delete;
 using Lab.Aml.Domain.Transactions.Commands.Update;
+using Lab.Aml.Domain.Transactions.Commands.Verify;
 using Lab.Aml.Domain.Transactions.Queries.Get;
 using Lab.Aml.Domain.Transactions.Queries.GetById;
 
@@ -34,6 +35,7 @@ internal static class Services
 		builder.Services.AddScoped<IGetTransactionByIdRepository, TransactionRepository>();
 		builder.Services.AddScoped<IUpdateTransactionRepository, TransactionRepository>();
 		builder.Services.AddScoped<IDeleteTransactionRepository, TransactionRepository>();
+		builder.Services.AddScoped<IVerifyTransactionsRepository, TransactionRepository>();
 
 		builder.Services.AddScoped<IAddLimitRepository, LimitRepository>();
 		builder.Services.AddScoped<IGetLatestLimitsRepository, LimitRepository>();
