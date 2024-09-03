@@ -13,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lab.Aml.DatabaseDesign", "L
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{25657B08-FFE0-4959-820D-90491412EED6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lab.Aml.Tests.DomainUnitTests", "Lab.Aml.Tests.DomainUnitTests\Lab.Aml.Tests.DomainUnitTests.csproj", "{70759E01-0C4F-4042-90E8-5D5E03AD3D1F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lab.Aml.Tests.DomainUnitTests", "Tests\Lab.Aml.Tests.DomainUnitTests\Lab.Aml.Tests.DomainUnitTests.csproj", "{70759E01-0C4F-4042-90E8-5D5E03AD3D1F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{2697BECB-969C-4ED8-B415-BB81AF9D5405}"
 	ProjectSection(SolutionItems) = preProject
