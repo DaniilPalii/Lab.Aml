@@ -116,22 +116,7 @@ public sealed class TransactionRepository(AppDbContext dbContext)
 			.Concat(nextTransactions);
 	}
 
-	public void MarkAsNotSuspicious(long id)
-	{
-		SetSuspicion(id, isSuspicious: false);
-	}
-
-	public void MarkAsSuspicious(long id)
-	{
-		SetSuspicion(id, isSuspicious: true);
-	}
-
-	public async Task SaveChangesAsync(CancellationToken cancellationToken)
-	{
-		await dbContext.SaveChangesAsync(cancellationToken);
-	}
-
-	private void SetSuspicion(long id, bool isSuspicious)
+	public void SetSuspicion(long id, bool isSuspicious)
 	{
 		var transaction = new Entities.Transaction
 		{
@@ -141,5 +126,10 @@ public sealed class TransactionRepository(AppDbContext dbContext)
 
 		dbContext.Attach(transaction);
 		dbContext.Entry(transaction).Property(e => e.IsSuspicious).IsModified = true;
+	}
+
+	public async Task SaveChangesAsync(CancellationToken cancellationToken)
+	{
+		await dbContext.SaveChangesAsync(cancellationToken);
 	}
 }

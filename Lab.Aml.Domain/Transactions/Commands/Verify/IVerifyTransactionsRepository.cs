@@ -9,9 +9,7 @@ public interface IVerifyTransactionsRepository
 		int previousOrNextTransactionsCount,
 		CancellationToken cancellationToken);
 
-	void MarkAsNotSuspicious(long id);
-
-	void MarkAsSuspicious(long id);
+	void SetSuspicion(long id, bool isSuspicious);
 
 	Task SaveChangesAsync(CancellationToken cancellationToken);
 }

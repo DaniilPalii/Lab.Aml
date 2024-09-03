@@ -19,6 +19,7 @@ public sealed class VerifyTransactionsCommandHandler(
 			.ToDictionary(l => l.Currency);
 
 		var transactionsToVerify = await repository.GetNotVerifiedAsync(cancellationToken);
+		var suspiciousTransactionIds = new HashSet<long>();
 
 		foreach (var transaction in transactionsToVerify)
 		{
@@ -31,16 +32,18 @@ public sealed class VerifyTransactionsCommandHandler(
 			if (TryGetTooFrequentTransactions(transactionsToVerifyFrequency, limit, out var tooFrequentTransactions))
 			{
 				foreach (var tooFrequentTransaction in tooFrequentTransactions)
-					repository.MarkAsSuspicious(tooFrequentTransaction.Id);
+					suspiciousTransactionIds.Add(tooFrequentTransaction.Id);
 			}
 			else if (transaction.Amount > limit.Amount)
 			{
-				repository.MarkAsSuspicious(transaction.Id);
+				suspiciousTransactionIds.Add(transaction.Id);
 			}
-			else
-			{
-				repository.MarkAsNotSuspicious(transaction.Id);
-			}
+		}
+
+		foreach (var transaction in transactionsToVerify)
+		{
+			var isSuspicious = suspiciousTransactionIds.Contains(transaction.Id);
+			repository.SetSuspicion(transaction.Id, isSuspicious);
 		}
 
 		await repository.SaveChangesAsync(cancellationToken);

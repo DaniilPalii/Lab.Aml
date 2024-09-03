@@ -50,7 +50,7 @@ public class VerifyTransactionsCommandHandlerTests
 		await handler.Handle(new VerifyTransactionsCommand(), CancellationToken.None);
 
 		// Assert
-		transactionRepository.Received(1).MarkAsSuspicious(transaction.Id);
+		transactionRepository.Received(1).SetSuspicion(transaction.Id, isSuspicious: true);
 		await transactionRepository.Received(1).SaveChangesAsync(Arg.Any<CancellationToken>());
 	}
 
@@ -86,7 +86,7 @@ public class VerifyTransactionsCommandHandlerTests
 		await handler.Handle(new VerifyTransactionsCommand(), CancellationToken.None);
 
 		// Assert
-		transactionRepository.Received(1).MarkAsNotSuspicious(transaction.Id);
+		transactionRepository.Received(1).SetSuspicion(transaction.Id, isSuspicious: false);
 		await transactionRepository.Received(1).SaveChangesAsync(Arg.Any<CancellationToken>());
 	}
 
@@ -131,7 +131,7 @@ public class VerifyTransactionsCommandHandlerTests
 		await handler.Handle(new VerifyTransactionsCommand(), CancellationToken.None);
 
 		// Assert
-		transactionRepository.Received(1).MarkAsNotSuspicious(usdTransaction.Id);
+		transactionRepository.Received(1).SetSuspicion(usdTransaction.Id, isSuspicious: false);
 		await transactionRepository.Received(1).SaveChangesAsync(Arg.Any<CancellationToken>());
 	}
 
@@ -197,7 +197,7 @@ public class VerifyTransactionsCommandHandlerTests
 		await handler.Handle(new VerifyTransactionsCommand(), CancellationToken.None);
 
 		// Assert
-		transactionRepository.Received(1).MarkAsSuspicious(transaction.Id);
+		transactionRepository.Received(1).SetSuspicion(transaction.Id, isSuspicious: true);
 		await transactionRepository.Received(1).SaveChangesAsync(Arg.Any<CancellationToken>());
 	}
 
@@ -263,7 +263,7 @@ public class VerifyTransactionsCommandHandlerTests
 		await handler.Handle(new VerifyTransactionsCommand(), CancellationToken.None);
 
 		// Assert
-		transactionRepository.Received(1).MarkAsSuspicious(transaction.Id);
+		transactionRepository.Received(1).SetSuspicion(transaction.Id, isSuspicious: true);
 		await transactionRepository.Received(1).SaveChangesAsync(Arg.Any<CancellationToken>());
 	}
 
@@ -320,7 +320,7 @@ public class VerifyTransactionsCommandHandlerTests
 		await handler.Handle(new VerifyTransactionsCommand(), CancellationToken.None);
 
 		// Assert
-		transactionRepository.Received(1).MarkAsNotSuspicious(transaction.Id);
+		transactionRepository.Received(1).SetSuspicion(transaction.Id, isSuspicious: false);
 		await transactionRepository.Received(1).SaveChangesAsync(Arg.Any<CancellationToken>());
 	}
 

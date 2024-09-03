@@ -1,4 +1,6 @@
 ﻿using Hangfire;
+using Lab.Aml.Domain.Transactions.Commands.Verify;
+using MediatR;
 
 namespace Lab.Aml.WebApi;
 
@@ -17,10 +19,10 @@ internal static class BackgroundJobs
 	{
 		application.UseHangfireDashboard();
 
-		RecurringJob.AddOrUpdate(
+		RecurringJob.AddOrUpdate<IMediator>(
 			recurringJobId: "VerifyTransactions",
-			() => Console.WriteLine("Recurring!"),
-			MinuteIntervalCronExpression(5));
+			mediator => mediator.Send(new VerifyTransactionsCommand(), CancellationToken.None),
+			MinuteIntervalCronExpression(2));
 	}
 
 	private static string MinuteIntervalCronExpression(int minutes)
