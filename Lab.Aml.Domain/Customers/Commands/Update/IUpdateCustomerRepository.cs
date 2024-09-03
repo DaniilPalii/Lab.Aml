@@ -2,7 +2,7 @@
 
 public interface IUpdateCustomerRepository
 {
-	void Update(UpdateCustomerCommand customer);
+	Task UpdateAsync(UpdateCustomerCommand customer, CancellationToken cancellationToken);
 
 	Task SaveChangesAsync(CancellationToken cancellationToken);
 }

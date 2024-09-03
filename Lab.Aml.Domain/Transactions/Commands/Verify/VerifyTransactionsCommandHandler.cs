@@ -43,7 +43,7 @@ public sealed class VerifyTransactionsCommandHandler(
 		foreach (var transaction in transactionsToVerify)
 		{
 			var isSuspicious = suspiciousTransactionIds.Contains(transaction.Id);
-			repository.SetSuspicion(transaction.Id, isSuspicious);
+			await repository.SetSuspicionAsync(transaction.Id, isSuspicious, cancellationToken);
 		}
 
 		await repository.SaveChangesAsync(cancellationToken);

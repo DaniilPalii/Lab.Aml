@@ -2,7 +2,7 @@
 
 public interface IMarkTransactionsAsSuspiciousRepository
 {
-	void MarkAsSuspicious(long id);
+	Task MarkAsSuspiciousAsync(long id, CancellationToken cancellationToken);
 
 	Task SaveChangesAsync(CancellationToken cancellationToken);
 }

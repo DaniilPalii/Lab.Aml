@@ -7,8 +7,7 @@ public sealed class MarkTransactionsAsSuspiciousCommandHandler(IMarkTransactions
 {
 	public async Task Handle(MarkTransactionsAsSuspiciousCommand request, CancellationToken cancellationToken)
 	{
-		repository.MarkAsSuspicious(request.Id);
-
+		await repository.MarkAsSuspiciousAsync(request.Id, cancellationToken);
 		await repository.SaveChangesAsync(cancellationToken);
 	}
 }

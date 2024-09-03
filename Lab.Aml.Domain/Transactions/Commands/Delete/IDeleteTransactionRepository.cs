@@ -2,7 +2,7 @@
 
 public interface IDeleteTransactionRepository
 {
-	public void Delete(long id);
+	Task DeleteAsync(long id, CancellationToken cancellationToken);
 
 	Task SaveChangesAsync(CancellationToken cancellationToken);
 }

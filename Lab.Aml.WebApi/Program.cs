@@ -2,7 +2,9 @@ using Lab.Aml.WebApi;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllers();
+builder.Services.AddControllers(options =>
+	options.Filters.Add<HttpResponseExceptionFilter>());
+
 builder.Services.AddEndpointsApiExplorer();
 Database.AddTo(builder);
 Services.AddTo(builder);
@@ -15,5 +17,9 @@ Swagger.UseIn(app);
 BackgroundJobs.UseIn(app);
 app.UseHttpsRedirection();
 app.MapControllers();
+
+#if RELEASE
+app.UseExceptionHandler("/error");
+#endif
 
 app.Run();

@@ -5,6 +5,7 @@ using Lab.Aml.Domain.Customers.Commands.Delete;
 using Lab.Aml.Domain.Customers.Commands.Update;
 using Lab.Aml.Domain.Customers.Queries.Get;
 using Lab.Aml.Domain.Customers.Queries.GetById;
+using Lab.Aml.Domain.Exceptions;
 using Microsoft.EntityFrameworkCore;
 
 namespace Lab.Aml.DataPersistence.Repositories;
@@ -51,8 +52,10 @@ public sealed class CustomerRepository(AppDbContext dbContext)
 			.FirstOrDefaultAsync(cancellationToken);
 	}
 
-	public void Update(UpdateCustomerCommand customer)
+	public async Task UpdateAsync(UpdateCustomerCommand customer, CancellationToken cancellationToken)
 	{
+		await EnsureCustomerExistsAsync(customer.Id, cancellationToken);
+
 		dbContext.Customers.Update(
 			new Entities.Customer
 			{
@@ -64,13 +67,24 @@ public sealed class CustomerRepository(AppDbContext dbContext)
 			});
 	}
 
-	public void Delete(long id)
+	public async Task DeleteAsync(long id, CancellationToken cancellationToken)
 	{
+		await EnsureCustomerExistsAsync(id, cancellationToken);
+
 		dbContext.Customers.Remove(new Entities.Customer { Id = id });
 	}
 
 	public async Task SaveChangesAsync(CancellationToken cancellationToken)
 	{
 		await dbContext.SaveChangesAsync(cancellationToken);
+	}
+
+	private async Task EnsureCustomerExistsAsync(long customerId, CancellationToken cancellationToken)
+	{
+		if (await dbContext.Transactions
+			.Where(t => t.Id == customerId)
+			.FirstOrDefaultAsync(cancellationToken)
+			is null)
+			throw new NotFoundException($"Customer with ID {customerId} doesn't exists.");
 	}
 }

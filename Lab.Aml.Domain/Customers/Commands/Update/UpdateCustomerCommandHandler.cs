@@ -5,10 +5,9 @@ namespace Lab.Aml.Domain.Customers.Commands.Update;
 public sealed class UpdateCustomerCommandHandler(IUpdateCustomerRepository repository)
 	: IRequestHandler<UpdateCustomerCommand>
 {
-	public Task Handle(UpdateCustomerCommand request, CancellationToken cancellationToken)
+	public async Task Handle(UpdateCustomerCommand request, CancellationToken cancellationToken)
 	{
-		repository.Update(request);
-
-		return repository.SaveChangesAsync(cancellationToken);
+		await repository.UpdateAsync(request, cancellationToken);
+		await repository.SaveChangesAsync(cancellationToken);
 	}
 }

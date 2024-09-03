@@ -1,4 +1,5 @@
 ﻿using Lab.Aml.DataPersistence.Context;
+using Lab.Aml.Domain.Exceptions;
 using Lab.Aml.Domain.Transactions;
 using Lab.Aml.Domain.Transactions.Commands.Add;
 using Lab.Aml.Domain.Transactions.Commands.Delete;
@@ -59,8 +60,10 @@ public sealed class TransactionRepository(AppDbContext dbContext)
 			.FirstOrDefaultAsync(cancellationToken);
 	}
 
-	public void Update(UpdateTransactionCommand transaction)
+	public async Task UpdateAsync(UpdateTransactionCommand transaction, CancellationToken cancellationToken)
 	{
+		await EnsureTransactionExistsAsync(transaction.Id, cancellationToken);
+
 		dbContext.Transactions.Update(
 			new Entities.Transaction
 			{
@@ -74,8 +77,9 @@ public sealed class TransactionRepository(AppDbContext dbContext)
 			});
 	}
 
-	public void Delete(long id)
+	public async Task DeleteAsync(long id, CancellationToken cancellationToken)
 	{
+		await EnsureTransactionExistsAsync(id, cancellationToken);
 		dbContext.Transactions.Remove(new Entities.Transaction { Id = id });
 	}
 
@@ -83,7 +87,7 @@ public sealed class TransactionRepository(AppDbContext dbContext)
 	{
 		return await dbContext.Transactions
 			.Where(t => t.IsSuspicious == null)
-			.Select(t => t.ToDomainValue()) // TODO: make projections smaller and specified per caller
+			.Select(t => t.ToDomainValue())
 			.ToListAsync(cancellationToken);
 	}
 
@@ -122,13 +126,15 @@ public sealed class TransactionRepository(AppDbContext dbContext)
 			.Concat(nextTransactions);
 	}
 
-	public void MarkAsSuspicious(long id)
+	public Task MarkAsSuspiciousAsync(long id, CancellationToken cancellationToken)
 	{
-		SetSuspicion(id, isSuspicious: true);
+		return SetSuspicionAsync(id, isSuspicious: true, cancellationToken);
 	}
 
-	public void SetSuspicion(long id, bool isSuspicious)
+	public async Task SetSuspicionAsync(long id, bool isSuspicious, CancellationToken cancellationToken)
 	{
+		await EnsureTransactionExistsAsync(id, cancellationToken);
+
 		var transaction = new Entities.Transaction
 		{
 			Id = id,
@@ -142,5 +148,14 @@ public sealed class TransactionRepository(AppDbContext dbContext)
 	public async Task SaveChangesAsync(CancellationToken cancellationToken)
 	{
 		await dbContext.SaveChangesAsync(cancellationToken);
+	}
+
+	private async Task EnsureTransactionExistsAsync(long transactionId, CancellationToken cancellationToken)
+	{
+		if (await dbContext.Transactions
+			.Where(t => t.Id == transactionId)
+			.FirstOrDefaultAsync(cancellationToken)
+			is null)
+			throw new NotFoundException($"Transaction with ID {transactionId} doesn't exists.");
 	}
 }
