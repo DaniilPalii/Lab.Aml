@@ -3,9 +3,9 @@
 namespace Lab.Aml.Domain.Limits.Commands.Add;
 
 public sealed class AddLimitCommandHandler(IAddLimitRepository repository)
-	: IRequestHandler<UpdateLimitCommand>
+	: IRequestHandler<AddLimitCommand>
 {
-	public Task Handle(UpdateLimitCommand request, CancellationToken cancellationToken)
+	public Task Handle(AddLimitCommand request, CancellationToken cancellationToken)
 	{
 		repository.Add(request);
 

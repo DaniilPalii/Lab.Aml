@@ -3,7 +3,7 @@ using MediatR;
 
 namespace Lab.Aml.Domain.Limits.Commands.Add;
 
-public sealed record UpdateLimitCommand(
+public sealed record AddLimitCommand(
 	Currency Currency,
 	decimal Amount,
 	int Count,

@@ -2,7 +2,7 @@
 
 public interface IAddLimitRepository
 {
-	void Add(UpdateLimitCommand customer);
+	void Add(AddLimitCommand customer);
 
 	Task SaveChangesAsync(CancellationToken cancellationToken);
 }

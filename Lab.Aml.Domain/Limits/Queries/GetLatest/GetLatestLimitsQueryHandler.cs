@@ -14,8 +14,6 @@ public sealed class GetLatestLimitsQueryHandler(IGetLatestLimitsRepository repos
 		for (var i = 0; i < currencies.Length; i++)
 		{
 			limits[i] = await repository.GetLatestAsync(currencies[i], cancellationToken);
-
-			cancellationToken.ThrowIfCancellationRequested();
 		}
 
 		return limits;

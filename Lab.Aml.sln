@@ -5,11 +5,15 @@ VisualStudioVersion = 17.10.34916.146
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lab.Aml.WebApi", "Lab.Aml.WebApi\Lab.Aml.WebApi.csproj", "{0CB2A502-D4B8-453E-AFC4-0FE439BBB902}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lab.Aml.Domain", "Lab.Aml.Domain\Lab.Aml.Domain.csproj", "{7460C70A-3CD3-453F-91D2-86D1C15937EB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lab.Aml.Domain", "Lab.Aml.Domain\Lab.Aml.Domain.csproj", "{7460C70A-3CD3-453F-91D2-86D1C15937EB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lab.Aml.DataPersistence", "Lab.Aml.DataPersistence\Lab.Aml.DataPersistence.csproj", "{7348B679-C23D-4491-BED3-2A6315F10526}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lab.Aml.DataPersistence", "Lab.Aml.DataPersistence\Lab.Aml.DataPersistence.csproj", "{7348B679-C23D-4491-BED3-2A6315F10526}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lab.Aml.DatabaseDesign", "Lab.Aml.DatabaseDesign\Lab.Aml.DatabaseDesign.csproj", "{C6720574-70F7-498F-8BB3-FA3516088C32}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lab.Aml.DatabaseDesign", "Lab.Aml.DatabaseDesign\Lab.Aml.DatabaseDesign.csproj", "{C6720574-70F7-498F-8BB3-FA3516088C32}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{25657B08-FFE0-4959-820D-90491412EED6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lab.Aml.Tests.DomainUnitTests", "Lab.Aml.Tests.DomainUnitTests\Lab.Aml.Tests.DomainUnitTests.csproj", "{70759E01-0C4F-4042-90E8-5D5E03AD3D1F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,9 +37,16 @@ Global
 		{C6720574-70F7-498F-8BB3-FA3516088C32}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C6720574-70F7-498F-8BB3-FA3516088C32}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C6720574-70F7-498F-8BB3-FA3516088C32}.Release|Any CPU.Build.0 = Release|Any CPU
+		{70759E01-0C4F-4042-90E8-5D5E03AD3D1F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{70759E01-0C4F-4042-90E8-5D5E03AD3D1F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{70759E01-0C4F-4042-90E8-5D5E03AD3D1F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{70759E01-0C4F-4042-90E8-5D5E03AD3D1F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{70759E01-0C4F-4042-90E8-5D5E03AD3D1F} = {25657B08-FFE0-4959-820D-90491412EED6}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0CA0F051-612B-4576-B434-48FD64EBBA61}

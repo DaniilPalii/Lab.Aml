@@ -13,7 +13,7 @@ public sealed class LimitRepository(AppDbContext dbContext)
 		IGetLatestLimitsRepository,
 		IGetLimitHistoryRepository
 {
-	public void Add(UpdateLimitCommand limit)
+	public void Add(AddLimitCommand limit)
 	{
 		dbContext.Limits.Add(
 			new Entities.Limit

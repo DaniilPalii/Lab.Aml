@@ -3,6 +3,7 @@ using Lab.Aml.Domain.Transactions;
 using Lab.Aml.Domain.Transactions.Commands.Add;
 using Lab.Aml.Domain.Transactions.Commands.Delete;
 using Lab.Aml.Domain.Transactions.Commands.Update;
+using Lab.Aml.Domain.Transactions.Commands.Verify;
 using Lab.Aml.Domain.Transactions.Queries.Get;
 using Lab.Aml.Domain.Transactions.Queries.GetById;
 using Microsoft.EntityFrameworkCore;
@@ -14,7 +15,8 @@ public sealed class TransactionRepository(AppDbContext dbContext)
 		IGetTransactionsRepository,
 		IGetTransactionByIdRepository,
 		IUpdateTransactionRepository,
-		IDeleteTransactionRepository
+		IDeleteTransactionRepository,
+		IVerifyTransactionsRepository
 {
 	public void Add(AddTransactionCommand transaction)
 	{
@@ -71,8 +73,73 @@ public sealed class TransactionRepository(AppDbContext dbContext)
 		dbContext.Transactions.Remove(new Entities.Transaction { Id = id });
 	}
 
+	public async Task<List<Transaction>> GetNotVerifiedAsync(CancellationToken cancellationToken)
+	{
+		return await dbContext.Transactions
+			.Where(t => t.IsSuspicious == null)
+			.Select(t => t.ToDomainValue()) // TODO: make projections smaller and specified per caller
+			.ToListAsync(cancellationToken);
+	}
+
+	public async Task<IEnumerable<Transaction>> GetByIdWithPreviousAndNextAsync(
+		long id,
+		int previousOrNextTransactionsCount,
+		CancellationToken cancellationToken)
+	{
+		var targetTransaction = await dbContext.Transactions
+			.Where(t => t.Id == id)
+			.Select(t => t.ToDomainValue())
+			.FirstOrDefaultAsync(cancellationToken);
+
+		if (targetTransaction == null)
+			return [];
+
+		var previousTransactions = await dbContext.Transactions
+			.Where(t => t.CustomerId == targetTransaction.CustomerId
+				&& t.CreationDate < targetTransaction.CreationDate)
+			.OrderByDescending(t => t.CreationDate)
+			.Take(previousOrNextTransactionsCount)
+			.Select(t => t.ToDomainValue())
+			.ToListAsync(cancellationToken);
+
+		var nextTransactions = await dbContext.Transactions
+			.Where(t => t.CustomerId == targetTransaction.CustomerId
+				&& t.CreationDate >= targetTransaction.CreationDate
+				&& t.Id != id)
+			.OrderByDescending(t => t.CreationDate)
+			.Take(previousOrNextTransactionsCount)
+			.Select(t => t.ToDomainValue())
+			.ToListAsync(cancellationToken);
+
+		return previousTransactions
+			.Concat([targetTransaction])
+			.Concat(nextTransactions);
+	}
+
+	public void MarkAsNotSuspicious(long id)
+	{
+		SetSuspicion(id, isSuspicious: false);
+	}
+
+	public void MarkAsSuspicious(long id)
+	{
+		SetSuspicion(id, isSuspicious: true);
+	}
+
 	public async Task SaveChangesAsync(CancellationToken cancellationToken)
 	{
 		await dbContext.SaveChangesAsync(cancellationToken);
+	}
+
+	private void SetSuspicion(long id, bool isSuspicious)
+	{
+		var transaction = new Entities.Transaction
+		{
+			Id = id,
+			IsSuspicious = isSuspicious,
+		};
+
+		dbContext.Attach(transaction);
+		dbContext.Entry(transaction).Property(e => e.IsSuspicious).IsModified = true;
 	}
 }

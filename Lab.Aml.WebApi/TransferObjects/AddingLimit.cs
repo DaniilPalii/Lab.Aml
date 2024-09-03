@@ -9,7 +9,7 @@ public sealed record AddingLimit(
 	int Count,
 	int RangeMinutes)
 {
-	public UpdateLimitCommand ToCommand()
+	public AddLimitCommand ToCommand()
 	{
 		return new(
 			Currency,
